@@ -29,7 +29,7 @@ jobs:
           grep -iv hotmail datos.csv > datos_filtrados.csv
 
           
-          name: Commit results
+      - name: Commit results
           if: always()
           run: |
             git config --local user.email "action@github.com"
