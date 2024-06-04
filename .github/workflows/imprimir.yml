@@ -22,7 +22,7 @@ jobs:
 
       - name: crear tabla de resultados
         run: |
-          grep -iv hotmail datos.csv | grep -v 15  > datos_filtrados.csv
+          grep -iv hotmail Datos.csv | grep -v 15  > datos_filtrados.csv
 
       - name: Commit results
         if: always()
@@ -46,7 +46,7 @@ jobs:
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde la fuente"
-          cat datos.csv
+          cat Datos.csv
           echo
           echo "filtrando datos"
           cat datos_filtrados.csv
