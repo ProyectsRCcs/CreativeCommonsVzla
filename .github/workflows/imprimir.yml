@@ -1,8 +1,8 @@
-name: ejemplo
+name: Imprimir Datos
 
 on:
   schedule:
-    - cron: '00 0 * * *' # Runs every day at 00:00 UTC
+    - cron: '00 0 * * FRI' # Runs every day at 00:00 UTC
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -17,7 +17,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run command in the vm
+      - name: Imprimir tabla bruta y neta
         run: |
-          echo "Hola, estoy cursando un taller con CCVzla"
-          ls -lhrt
+          echo "tabla desde la fuente"
+          grep -v hotmail Datos.csv
+          
