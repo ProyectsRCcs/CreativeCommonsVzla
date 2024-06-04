@@ -6,6 +6,10 @@ on:
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
+  analizando_datos:
+    permissions:
+      contents: write
+  
   Carga_datos:
     runs-on: ubuntu-latest
     steps:
@@ -20,5 +24,19 @@ jobs:
       - name: Imprimir tabla bruta y neta
         run: |
           echo "tabla desde la fuente"
-          grep -v hotmail Datos.csv
+          cat Datos.csv
+          echo "filtrando datos"
+          grep -iv hotmail datos.csv > datos_filtrados.csv
+
           
+          name: Commit results
+          if: always()
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git diff --quiet || git stash
+            git pull --rebase origin main
+            git stash list | grep "stash@{0}" && git stash apply
+            git add .
+            git diff --cached --exit-code || git commit -m "Add earnings output" --allow-empty
+            git push --force-with-lease origin HEAD:main
